@@ -1,0 +1,360 @@
+﻿{
+    "step":  "agent-instruction",
+    "discovery":  {
+                      "created_by":  "discovery-research",
+                      "phase":  "phase4-done",
+                      "discovery_file":  "discovery/discovery.md",
+                      "completed_at":  "2026-10-04",
+                      "sources_fetched_at":  "2026-10-04",
+                      "sistemas_relevados":  20,
+                      "sources":  [
+                                      "https://dentalsoft.com.ar/",
+                                      "https://dentalcore.app/",
+                                      "https://www.clinia.com.ar/odontologia",
+                                      "https://flap.com.ar/odontologos",
+                                      "https://ixi.ar/",
+                                      "https://dentiqa.app/ar",
+                                      "https://www.denpro.ar/",
+                                      "https://iasistemas.com/sistema-para-clinicas-odontologicas",
+                                      "https://dentatools.co/ar/",
+                                      "https://odontoly.com/",
+                                      "https://www.medicai.com.ar/precios",
+                                      "https://www.gestionsalud.com.ar/",
+                                      "https://sigo.com.ar/",
+                                      "https://worldsoftsystems.com.ar/software-gestion-medica/",
+                                      "https://salviagestion.ar/",
+                                      "https://medtech.com.ar/sistema-gdc/",
+                                      "https://agendapro.com/co/dental/software-odontologico",
+                                      "https://pro.doctoralia.es/precios/para-clinicas",
+                                      "https://www.curvedental.com/pricing",
+                                      "https://www.capterra.es/software/2329/dentrix"
+                                  ],
+                      "competitors":  [
+                                          {
+                                              "name":  "DentalSoft",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 1"
+                                          },
+                                          {
+                                              "name":  "DentalCore",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 2"
+                                          },
+                                          {
+                                              "name":  "OdontoClinIA (ClinIA)",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 3"
+                                          },
+                                          {
+                                              "name":  "FLAP",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 4"
+                                          },
+                                          {
+                                              "name":  "ixi",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 5"
+                                          },
+                                          {
+                                              "name":  "Dentiqa",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 6"
+                                          },
+                                          {
+                                              "name":  "DenPro",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 7"
+                                          },
+                                          {
+                                              "name":  "IA Sistemas",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 8"
+                                          },
+                                          {
+                                              "name":  "Dentatools",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 9"
+                                          },
+                                          {
+                                              "name":  "Odontoly",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 10"
+                                          },
+                                          {
+                                              "name":  "MedicAI",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 11"
+                                          },
+                                          {
+                                              "name":  "Gestion Salud",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 12"
+                                          },
+                                          {
+                                              "name":  "Sigo",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 13"
+                                          },
+                                          {
+                                              "name":  "WorldSoft Systems (Medical)",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 14"
+                                          },
+                                          {
+                                              "name":  "Salvia",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 15"
+                                          },
+                                          {
+                                              "name":  "MEDTECH GDC",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 16"
+                                          },
+                                          {
+                                              "name":  "AgendaPro",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 17"
+                                          },
+                                          {
+                                              "name":  "Doctoralia Pro",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 18"
+                                          },
+                                          {
+                                              "name":  "Curve Dental",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 19"
+                                          },
+                                          {
+                                              "name":  "Dentrix",
+                                              "notes_file":  "discovery/discovery.md",
+                                              "notes_section":  "Seccion A - fila 20"
+                                          }
+                                      ],
+                      "supuestos_desmentidos":  [
+                                                    "Gestionix: el prompt lo listaba como competidor. Era un ERP mexicano para pymes y contadores, adquirido por la fintech Konfio en diciembre de 2020 y cerrado el 30 de octubre de 2023. No tiene relacion con salud ni con Argentina.",
+                                                    "SysTurno: no se pudo confirmar la existencia de un producto dental argentino con ese nombre. No evidenciado.",
+                                                    "Turnos Online: no se pudo confirmar un competidor dental argentino identificable con ese nombre. No evidenciado."
+                                                ],
+                      "problema":  "Las clinicas odontologicas chico-medianas en Argentina coordinan la agenda por telefono, WhatsApp personal y papel, lo que produce tres danos concretos: doble reserva y solapamiento por no existir una unica fuente de verdad de disponibilidad; ausentismo por falta de recordatorio automatico, que convierte el horario perdido en ingreso perdido; y dependencia de una sola persona, porque si la secretaria falta la agenda deja de entenderse. El proyecto apunta a resolver solo el nucleo de turnos: una agenda unica con disponibilidad real por profesional, consultable y reservable desde el celular, que avise al paciente antes del turno.",
+                      "usuarios":  [
+                                       "Secretaria / recepcion (verbo principal: agendar): cargar y modificar turnos sin depender del odontologo, ver la agenda del dia completa, evitar solapamientos, buscar pacientes rapido.",
+                                       "Odontologo (verbo principal: atender): ver solo sus turnos del dia con la ficha basica del paciente a mano al abrir el turno.",
+                                       "Administrador / dueno (verbo principal: administrar): ver la agenda de todos los profesionales y saber cuantos turnos hay y cuantos se cumplieron.",
+                                       "Paciente (verbo principal: reservar): reservar desde el celular sin llamar ni instalar nada. Sin cuenta ni login en el MVP: la reserva online es por enlace."
+                                   ],
+                      "casos_de_uso":  [
+                                           "Como secretaria, quiero cargar un turno eligiendo profesional, fecha, hora y paciente, para que el horario quede reservado y no se pueda sobreescribir por error.",
+                                           "Como secretaria, quiero ver la agenda del dia de todos los profesionales en una sola pantalla, para saber a quien atender y en que orden sin preguntar.",
+                                           "Como odontologo, quiero ver solo mis turnos del dia con la ficha basica del paciente, para atender sin buscar informacion en otro lado.",
+                                           "Como secretaria, quiero cancelar o reprogramar un turno y que el horario quede libre automaticamente, para poder ofrecerlo a otro paciente sin borrado manual.",
+                                           "Como paciente, quiero reservar un turno desde el celular sin llamar ni instalarme nada, para no perder tiempo en un turno telefonico."
+                                       ],
+                      "funcionalidades_necesarias":  [
+                                                         "Ficha de paciente (nombre, apellido, DNI, telefono, mail, fecha de nacimiento).",
+                                                         "Gestion de profesionales (odontologos): la agenda es por profesional.",
+                                                         "Agenda por dia y por profesional: es la pantalla de la que viven secretaria y odontologo.",
+                                                         "Reserva de turno (fecha, hora, profesional, paciente, tratamiento breve).",
+                                                         "Validacion anti-solapamiento en la capa de datos, no solo en la interfaz: es la regla que no puede fallar.",
+                                                         "Cancelacion y reprogramacion con liberacion automatica del horario.",
+                                                         "Listado de turnos del dia: la consulta mas frecuente del odontologo.",
+                                                         "Busqueda basica de pacientes.",
+                                                         "Roles y permisos basicos (secretaria / odontologo / administrador). Agregado al prompt original porque sin esta separacion el odontologo termina cargando turnos de la secretaria.",
+                                                         "Duracion variable por prestacion. Agregado al prompt original: si se fija una duracion unica, el modelo de datos del turno es incorrecto desde el dia 1 y despues hay que migrar.",
+                                                         "Bloqueos y feriados. Agregado al prompt original: sin esto la agenda ofrece horarios que en realidad no existen, que es el riesgo mas caro del sistema."
+                                                     ],
+                      "funcionalidades_opcionales":  [
+                                                         "Recordatorio por WhatsApp al paciente (prioridad alta): es la funcionalidad con mas impacto sobre el ausentismo; contra costo variable de la API de Meta, dependencia de un tercero y no verificable sin probarla.",
+                                                         "Reserva online publica por enlace, sin cuenta ni app (prioridad alta): el paciente elige profesional, fecha y hora sobre disponibilidad real.",
+                                                         "Lista de espera (prioridad alta): cuando alguien cancela, ofrecer el hueco a un paciente de espera.",
+                                                         "Reporte de ocupacion: cuantos turnos por profesional, por franja horaria y cuantos se cumplieron (prioridad media).",
+                                                         "Impresion de la agenda del dia en formato lista para dejar en recepcion (prioridad media).",
+                                                         "Turnos urgentes / sobreturnos fuera de la agenda del dia (prioridad media).",
+                                                         "Exportar la agenda del dia a CSV/Excel para el docente o para el contador (prioridad media).",
+                                                         "Notificaciones por email en lugar de WhatsApp (prioridad baja).",
+                                                         "Auditoria de cambios: quien modifico que turno y cuando (prioridad baja).",
+                                                         "Multi-sucursal (prioridad baja): un solo consultorio con dos gabinetes no es multi-sucursal.",
+                                                         "Explicitamente fuera de alcance: historia clinica electronica, odontograma, periodonto, prescripciones, facturacion, caja, obras sociales/prepagas, IA, chatbot, portal del paciente con usuario y contrasena y app movil nativa. No porque sean malas ideas, sino porque cada una multiplica el alcance por un factor de 3 a 5."
+                                                     ],
+                      "reglas_de_negocio":  [
+                                                "R1 Un profesional no puede tener dos turnos superpuestos en el mismo horario. Comprobada: declarada de forma explicita por al menos 8 de los 20 proveedores relevados.",
+                                                "R2 No se puede reservar en una fecha/hora pasada. Comprobada.",
+                                                "R3 No se puede reservar en un bloque de horario bloqueado (vacaciones, feriado, no atencion). Comprobada.",
+                                                "R4 La duracion del turno depende de la prestacion, no es fija. Supuesto, a confirmar con el cliente/docente.",
+                                                "R5 Al cancelar, el horario queda automaticamente disponible para otro paciente. Supuesto, a confirmar.",
+                                                "R6 La clinica atiende en una franja horaria fija por dia de la semana (ej. 9-13 y 16-20). Supuesto, a confirmar.",
+                                                "R7 El paciente no puede tener dos turnos simultaneos en profesionales distintos. No evidenciado: ningun proveedor relevado lo declara. Es una excepcion legitima (cirugia en equipo, sedacion), pero conviene dejarla explicita en el modelo de datos aunque la decision sea permitirla.",
+                                                "R8 Los feriados se contrastan contra el calendario nacional argentino. Supuesto: solo IA Sistemas lo declara explicitamente entre los 10 argentinos; FLAP lo resuelve con bloqueos manuales.",
+                                                "No se incluye anticipacion minima de cancelacion: el prompt la sugirio pero ningun proveedor argentino relevado declara esa politica, y en un consultorio chico imponerla sin dato real seria inventarla. Queda como pregunta abierta."
+                                            ],
+                      "integraciones":  [
+                                            "Ninguna integracion externa es obligatoria para el MVP. Decision consciente, no una casualidad: el sistema debe ser completamente utilizable con la base de datos sola.",
+                                            "No se requiere infraestructura propia de terceros en el MVP: sin pagos, sin mensajeria, sin servicios cloud de terceros.",
+                                            "WhatsApp Business API - diferida post-MVP. Es la que mas ataca el ausentismo, pero tiene costo por mensaje, dependencia de Meta y requiere cuenta empresarial verificada. DentalSoft la cobra aparte (USD 0.026 por mensaje) y FLAP la vende en packs adicionales.",
+                                            "Mercado Pago - diferida. Senas y cobros, con comision por transaccion.",
+                                            "Google Calendar - diferida. Sincronizacion con la agenda que el odontologo ya usa; baja complejidad tecnica.",
+                                            "AFIP / ARCA (facturacion electronica) - diferida. Solo si entra facturacion; alta complejidad normativa. Dentatools declara explicitamente que NO emite factura AFIP y opera igual."
+                                        ],
+                      "restricciones":  [
+                                            "R-1 Entregable de Metodologia de Sistemas (TUP). Real. Define el criterio de exito: que se pueda explicar y defender, no que sea el mejor producto del mercado.",
+                                            "R-2 Priorizar claridad sobre complejidad. Real, explicita en el prompt. Un solo camino para resolver cada cosa; sin framework y sin sobreingenieria.",
+                                            "R-3 Enfoque didactico pero usable. Real. La interfaz tiene que poder operarse, no solo demonstrarse.",
+                                            "R-4 Web, multiusuario, base de datos. Supuesto, a confirmar. Es la eleccion tecnica que mas condiciona el diseno y este Discovery no la decide: le corresponde a kb-creator.",
+                                            "R-5 Presupuesto acotado / sin costos de infraestructura. Supuesto, a confirmar. Si es real, descarta cualquier dependencia de un servicio de pago de terceros.",
+                                            "Por que R-4 importa tanto: con web + multiusuario + BD, la validacion anti-solapamiento va con restricciones e indices unicos en la base y el sistema nunca tiene el problema de dos secretarias editando el mismo turno. Con desktop local o Python + consola, la doble reserva sigue existiendo a nivel de datos, o sea el sistema no resolveria el problema que dice resolver."
+                                        ],
+                      "riesgos":  [
+                                      "Riesgo #1 del proyecto: supuesto sin probar de que la clinica objetivo de verdad necesita digitalizar y no seguir con WhatsApp + papel. No hay ninguna validacion con una clinica real. Todo el proyecto descansa sobre este supuesto.",
+                                      "Riesgo #2: supuesto sin probar de que el solapamiento y la doble reserva son el dolor principal. Ningun proveedor argentino publica metricas de campo verificables; DentalSoft afirma -82% de ausencias e IA Sistemas cita una revision Cochrane, ambas afirmaciones comerciales. No hay que tomar esas cifras como dato.",
+                                      "Riesgo #3: supuesto sin probar de que el usuario objetivo es una clinica chico-media con recepcion y varios profesionales. Si el cliente real es un odontologo solo, el modulo de roles y la agenda multi-profesional sobran.",
+                                      "Riesgo #4: supuesto sin probar de que un sistema sin historia clinica ni odontograma es aceptable. Es la apuesta central y la mas discutible: los 10 de los 10 proveedores argentinos dedicados a odontologia incluyen odontograma. Este riesgo define si el proyecto es viable.",
+                                      "Riesgo tecnico: el componente de envio de mensajes es lo mas caro de construir y lo menos controlable. Los dos proveedores que publican un costo explicito lo trasladan al cliente, asi que el costo por mensaje es variable.",
+                                      "Riesgo tecnico: la reserva online publica es la parte mas dificil del MVP, no la mas facil. Exige slots calculados en tiempo real y manejo de concurrencia; el riesgo real es subestimar la concurrencia, que es exactamente el escenario R1 y no se resuelve con un if.",
+                                      "Riesgo tecnico: datos sensibles de salud sin marco normativo resuelto. Argentina aplica Ley 25.326 y Ley 26.529 / Ley de Historia Clinica Electronica. Solo 4 de los 10 proveedores argentinos declaran cumplimiento normativo de forma explicita, y casi todas son afirmaciones comerciales salvo cuando citan un registro verificable (OdontoClinIA ReNaPDiS #248, MedicAI ReNaPDiS #292).",
+                                      "Riesgo tecnico: sobre-alcance por contaminacion del mercado. Los proveedores arman bundles de 9 a 17 modulos; copiar ese modelo es no terminar ninguno bien.",
+                                      "Descartado: dependencia de un solo proveedor (lock-in). El MVP no depende de ningun SaaS externo.",
+                                      "Descartado: Gestionix como riesgo de competencia. La empresa no existe."
+                                  ],
+                      "preguntas_abiertas":  [
+                                                 "BLOQUEANTE 1: Que se define como alcance del MVP, agenda interna o agenda publica? El caso de uso 5 esta en la lista pero es la parte mas costosa y la de mayor riesgo de concurrencia. Sin esta respuesta el resto del MVP se construye pero no se cierra.",
+                                                 "BLOQUEANTE 2: Se incluye recordatorio por WhatsApp? Es la funcionalidad con mas impacto sobre el problema real y la que introduce costo variable y dependencia externa.",
+                                                 "BLOQUEANTE 3: Se confirma web + multiusuario + base de datos relacional? Es la decision que mas condiciona el modelo de datos, en particular la regla R1.",
+                                                 "BLOQUEANTE 4: Acepta el cliente un sistema sin historia clinica ni odontograma? Si la respuesta es no, el proyecto es otro proyecto.",
+                                                 "5 Que duracion por prestacion? Sin una tabla real de duraciones la agenda no se puede calcular bien.",
+                                                 "6 La clinica atiende obras sociales o prepagas? Solo 3 de los 10 proveedores argentinos lo manejan de forma explicita (DentalSoft, DentalCore y OdontoClinIA); los demas lo dejan en No evidenciado o lo declaran fuera. Dejarlo fuera es una decision consciente y valida, pero conviene que sea explicita y no un olvido.",
+                                                 "7 Hay una clinica real disponible para probar? Es el unico modo de convertir el riesgo 1 en dato.",
+                                                 "8 Se puede eliminar la regla de anticipacion minima de cancelacion?",
+                                                 "9 Un paciente puede tener dos turnos simultaneos? (R7) Ningun proveedor lo declara; conviene decidirlo explicitamente."
+                                             ]
+                  },
+    "kb":  {
+               "created_by":  "kb-creator",
+               "source":  "interactive",
+               "discovery":  {
+                                 "problem":  "Una clínica odontológica chico-mediana coordina sus turnos por teléfono, WhatsApp y papel, lo que produce doble reserva y solapamiento por no existir una única fuente de verdad de disponibilidad; el sistema centraliza la agenda interna por profesional y garantiza en la capa de datos que ningún horario quede reservado dos veces.",
+                                 "system_type":  "web_app",
+                                 "domain":  "odontologia",
+                                 "scale":  "team",
+                                 "stack":  "Python + FastAPI + SQLAlchemy + PostgreSQL + Redis (declarado en Docker Compose, sin uso funcional en el MVP) + React + TypeScript + Vite + Docker Compose",
+                                 "needs_infra":  true
+                             },
+               "files":  [
+                             "knowledge-base/01_vision_y_objetivos.md",
+                             "knowledge-base/02_descripcion_general.md",
+                             "knowledge-base/03_actores_y_roles.md",
+                             "knowledge-base/04_modelo_de_datos.md",
+                             "knowledge-base/05_reglas_de_negocio.md",
+                             "knowledge-base/06_funcionalidades.md",
+                             "knowledge-base/07_flujos_principales.md",
+                             "knowledge-base/08_arquitectura_propuesta.md",
+                             "knowledge-base/09_decisiones_y_supuestos.md",
+                             "knowledge-base/10_preguntas_abiertas.md",
+                             "knowledge-base/README.md"
+                         ]
+           },
+    "roadmap":  {
+                    "created_by":  "roadmap-generator",
+                    "source":  "CHANGES.md",
+                    "changes_file":  "CHANGES.md",
+                    "changes":  [
+                                    "C-01",
+                                    "C-02",
+                                    "C-03",
+                                    "C-04",
+                                    "C-05",
+                                    "C-06",
+                                    "C-07",
+                                    "C-08",
+                                    "C-09",
+                                    "C-10",
+                                    "C-11",
+                                    "C-12",
+                                    "C-13",
+                                    "C-14",
+                                    "C-15",
+                                    "C-16",
+                                    "C-17",
+                                    "C-18",
+                                    "C-19"
+                                ]
+                },
+    "version":  4,
+    "owner":  "active-orchestrator",
+    "skills":  {
+                   "created_by":  "find-skill",
+                   "recommended":  [
+                                       {
+                                           "name":  "fastapi",
+                                           "repo":  "fastapi/fastapi@fastapi",
+                                           "source":  "skills.sh",
+                                           "why":  "Official FastAPI skill (first-party repo); exact framework for the backend — routers, DI (`get_db`, `require_role`), Pydantic v2 schemas and async patterns."
+                                       },
+                                       {
+                                           "name":  "python-testing-patterns",
+                                           "repo":  "wshobson/agents@python-testing-patterns",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; pytest patterns for unit/integration tests with `httpx.AsyncClient` against a real containerized DB, incl. the 409 anti-overlap and concurrency cases the KB\u0027s test strategy demands."
+                                       },
+                                       {
+                                           "name":  "vercel-react-best-practices",
+                                           "repo":  "vercel-labs/agent-skills@vercel-react-best-practices",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party (vercel-labs, official Vercel org); React 18 + TypeScript quality for the SPA (agenda views, forms, guards) — highest-install React skill in the ecosystem."
+                                       },
+                                       {
+                                           "name":  "api-and-interface-design",
+                                           "repo":  "addyosmani/agent-skills@api-and-interface-design",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; REST resource design, versioning (`/api/v1`), error contracts and pagination — directly supports DD-02 and the \u0027criterio de éxito es la defensa\u0027 (DD-19)."
+                                       },
+                                       {
+                                           "name":  "postgresql-table-design",
+                                           "repo":  "wshobson/agents@postgresql-table-design",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; PostgreSQL schema/index design — directly relevant to the GiST `EXCLUDE` constraints, `btree_gist`, range types and desnormalized `fin` that carry invariant R1 (DD-08)."
+                                       },
+                                       {
+                                           "name":  "auth-implementation-patterns",
+                                           "repo":  "wshobson/agents@auth-implementation-patterns",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; JWT + bcrypt + RBAC authorization patterns — maps to `core/security.py`, `require_role`, query-level filtering and 404-vs-403 policy (RN-AU-02…07)."
+                                       },
+                                       {
+                                           "name":  "tdd",
+                                           "repo":  "mattpocock/skills@tdd",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; 1M installs, top-ranked testing skill — disciplines test-first work on domain rules (estado machine, duración, disponibilidad) that must be provable in the defense."
+                                       },
+                                       {
+                                           "name":  "security-and-hardening",
+                                           "repo":  "addyosmani/agent-skills@security-and-hardening",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; web-app security hardening — relevant to Ley 25.326 measures (DNI masking, log minimization, secrets, HTTPS, CORS allow-list) documented in 08_arquitectura_propuesta."
+                                       },
+                                       {
+                                           "name":  "multi-stage-dockerfile",
+                                           "repo":  "github/awesome-copilot@multi-stage-dockerfile",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; multi-stage Dockerfile patterns for both images the Compose needs: Python backend and Vite-build → nginx frontend, plus the one-shot migrate job."
+                                       },
+                                       {
+                                           "name":  "async-python-patterns",
+                                           "repo":  "wshobson/agents@async-python-patterns",
+                                           "source":  "skills.sh",
+                                           "why":  "Third-party; asyncio/async-context patterns — fits SQLAlchemy 2.0 async sessions, `get_db` transactional boundaries and concurrent reservation tests."
+                                       }
+                                   ],
+                   "installed":  [
+                                     "fastapi",
+                                     "python-testing-patterns",
+                                     "vercel-react-best-practices",
+                                     "api-and-interface-design",
+                                     "postgresql-table-design",
+                                     "auth-implementation-patterns",
+                                     "tdd",
+                                     "security-and-hardening",
+                                     "multi-stage-dockerfile",
+                                     "async-python-patterns"
+                                 ]
+               }
+}
