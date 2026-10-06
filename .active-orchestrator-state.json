@@ -1,5 +1,5 @@
 ﻿{
-    "step":  "agent-instruction",
+    "step":  "done",
     "discovery":  {
                       "created_by":  "discovery-research",
                       "phase":  "phase4-done",
@@ -356,5 +356,40 @@
                                      "multi-stage-dockerfile",
                                      "async-python-patterns"
                                  ]
+                },
+    "registry":  {
+                     "created_by":  "skill-registry",
+                     "file":  ".atl/skill-registry.md",
+                     "registered":  10,
+                     "canonical_root":  ".agents/skills",
+                     "mirrors_removed":  [".claude/skills", "agent/skills"]
+                 },
+    "agents":  {
+                   "created_by":  "agent-instruction",
+                   "files":  ["CLAUDE.md", "AGENTS.md"],
+                   "bytes":  11110,
+                   "reglas_applied":  [
+                       "NUNCA redefinir el alcance fuera de la knowledge-base; códigos RN/US/DD/SU/PA/IN estables y los retirados nunca se reutilizan",
+                       "NUNCA implementar fuera de alcance (reserva pública, historia clínica, imágenes de odontograma, facturación, recordatorios/WhatsApp, exportación CSV, multi-sucursal)",
+                       "NUNCA usar Redis en el MVP (declarado sin uso funcional, DD-06)",
+                       "NUNCA unificar backend y frontend: dos apps separadas, única interfaz = API REST JSON bajo /api/v1 (DD-01/03)",
+                       "NUNCA lógica de negocio en routers ni en el frontend: servicios de dominio con app/{api,domain,infrastructure}, dependencia api → domain → infrastructure (C-01)",
+                       "NUNCA agregar tecnologías fuera del stack de 02_descripcion_general.md (Redux, Tailwind, GraphQL, ORM TS, Prisma, Celery…)",
+                       "NUNCA guardar sesión en cookies ni localStorage: JWT stateless en Authorization Bearer + token en sessionStorage; no crear POST /auth/logout (RN-AU-06/07)",
+                       "NUNCA schema Pydantic de request sin extra='forbid'",
+                       "NUNCA garantizar el no-solapamiento sólo en código de aplicación: la garantía son los 3 constraints EXCLUDE USING gist; concurrencia = caso de test obligatorio (M-1)",
+                       "NUNCA dejar pasar SQLSTATE 23P01 como 500 → traducir a 409 con cuerpo legible (SOLAPAMIENTO)",
+                       "NUNCA DELETE físico: baja lógica con activo BOOLEAN (RN-GL-01); auditoría e historial del odontograma append-only",
+                       "NUNCA timestamps naive ni horas locales en la BD: TIMESTAMPTZ en UTC, presentar en America/Argentina/Buenos_Aires, API ISO 8601 con offset",
+                       "NUNCA enums con CREATE TYPE: VARCHAR + CHECK o tabla lookup; IDs BIGINT GENERATED ALWAYS AS IDENTITY, identificadores snake_case",
+                       "NUNCA devolver 403 por un recurso ajeno: recurso inexistente/inactivo/ajeno responde 404 indistinguible; 403 sólo para rol sin esa operación (RN-GL-05, RN-AU-02/04)",
+                       "NUNCA query de agenda/pacientes sin el filtro de ownership para odontólogo: profesional_id obligatorio (RN-AU-05); la autoridad es el backend (RN-AU-04)",
+                       "NUNCA asumir que el rol viene sólo del token sin validación server-side: require_role(...) en cada endpoint protegido",
+                       "NUNCA imágenes ni gráficos de piezas en el odontograma: estados por pieza FDI con catálogo cerrado; PUT /odontograma/{pieza} idempotente (DD-04, RN-OD-07)",
+                       "NUNCA proponer un change sin leer CHANGES.md: respetar dependencias, gates y \"Leer antes\"; archivar con /opsx:archive",
+                       "NUNCA invocar openspec desde el shim .ps1: usar openspec.cmd; en PowerShell 5.1 usar Select-String / Select-Object / Measure-Object",
+                       "NUNCA buildear, commitear ni pushear sin pedido explícito: commits convencionales, sin co-autoría de IA"
+                   ],
+                   "gate_pendiente":  "Confirmar con el docente el cierre de las PA de prioridad Alta (PA-13/01/02/06/07 ya respondidas por DD-04/05/06/07/16)"
                }
 }

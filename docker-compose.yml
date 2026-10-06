@@ -1,0 +1,92 @@
+﻿version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: turnos_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: turnos
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - turnos-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: turnos_redis
+    command: redis-server --save "" --appendonly no
+    networks:
+      - turnos-net
+    # No ports, no client usage per DD-06
+
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: turnos_migrate
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/turnos
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "alembic upgrade head && python -m app.seed"
+    networks:
+      - turnos-net
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: turnos_api
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/turnos
+      - JWT_SECRET_KEY=dev-secret-key-change-in-prod
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRATION_MINUTES=60
+      - CORS_ORIGINS=http://localhost:5173
+      - ENV=development
+      - REDIS_URL=redis://redis:6379/0
+      - TIMEZONE_CLINICA=America/Argentina/Buenos_Aires
+    ports:
+      - "8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - turnos-net
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000/api/v1
+        - VITE_API_BASE=/api/v1
+    container_name: turnos_web
+    ports:
+      - "5173:80"
+    depends_on:
+      api:
+        condition: service_started
+    networks:
+      - turnos-net
+
+volumes:
+  pgdata:
+
+networks:
+  turnos-net:
+    driver: bridge
