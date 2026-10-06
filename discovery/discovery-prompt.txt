@@ -1,0 +1,60 @@
+﻿# Prompt para Discovery – Turnos Odontología
+
+## Contexto general
+Estamos desarrollando un sistema de turnos para odontología.  
+El objetivo es reemplazar o digitalizar la gestión de turnos, pacientes, profesionales y agenda.  
+
+## Idea del sistema
+"Turnos Odontología": sistema para gestionar agenda médica odontológica.  
+Debe permitir asignar turnos, controlar disponibilidad, registrar pacientes, ver agenda por profesional, evitar solapamientos y facilitar la organización diaria.
+
+## Alcance (MVP)
+- Gestión de pacientes (ficha básica: nombre, apellido, DNI, teléfono, mail, fecha nacimiento)
+- Gestión de profesionales (odontólogos) con sus horarios/agenda
+- Agenda por día/profesional (calendario/tabla)
+- Reserva de turno (fecha, hora, profesional, paciente, tratamiento breve)
+- Cancelación / reprogramación de turno
+- Control de disponibilidad (evitar doble turno mismo profesional/hora)
+- Listado de turnos del día
+- Búsqueda básica de pacientes
+
+## Fuera de MVP (a futuro)
+- Historia clínica (HC)
+- Odontograma
+- Prescripciones/recetas
+- Recordatorios por mail/SMS
+- Facturación
+- Módulo de caja
+- Reportes estadísticos avanzados
+
+## Competidores / referencias
+- Gestionix? 
+- Turnos Online
+- Calendly (más genérico)
+- Doctoralia (muy completo, mirar ideas)
+- SysTurno / otros locales
+
+Pero aún no definimos con certeza. 
+Podés investigar brevemente con web-scraper si querés, pero foco en argentino/salud odontológica.
+
+## Preguntas para responder en Discovery (11 puntos)
+1. **Problema**: ¿Qué problema concreto resuelve este sistema para una clínica odontológica chica/media?
+2. **Usuarios/roles**: ¿Quiénes lo usan? (secretaria, odontólogo, administrador?) ¿Necesita login por rol?
+3. **Casos de uso**: 3–5 casos de uso reales
+4. **Competidores**: ¿Qué usan hoy las clínicas? ¿Cuál conviene mirar?
+5. **Funcionalidades necesarias (MVP)**: Ajustar lista vs lo propuesto
+6. **Funcionalidades opcionales**: ¿Cuáles valen para post-MVP?
+7. **Reglas de negocio**: Ej. duración fija por turno? (15/30 min?), franja laboral, feriados?, bloqueo entre turnos, no reservar pasado?
+8. **Integraciones**: ¿Necesita integraciones ahora? (mail, whatsapp, imprimir?)
+9. **Restricciones**: ¿Tecnologías preferidas? (web? desktop? Python + consola? o web simple) ¿multiusuario? ¿datos locales vs BD?
+10. **Riesgos**: ¿Principales riesgos para este MVP?
+11. **Preguntas abiertas**: ¿Qué dudas quedan por validar con el docente/cliente?
+
+## Preferencias / enfoque
+- Sencillo, práctico, pensado para entregar en Metodología de Sistemas (TUP)
+- Enfoque didáctico pero usable
+- Priorizá claridad sobre complejidad
+- Si hay ambigüedad, **consultame antes** de asumir
+
+## Resultado esperado
+Generar `discovery/discovery.md` + `state.discovery` con todo lo anterior razonado, claro y listo para pasar a `kb-creator`.
