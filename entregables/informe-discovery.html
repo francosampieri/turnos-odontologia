@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Informe de Discovery — Turnos Odontología</title>
+<style>
+  :root{
+    --azul:#0e5a8a; --azul-osc:#093c5e; --azul-claro:#e8f1f7;
+    --verde:#1b7f4d; --verde-claro:#e7f4ec;
+    --ambar:#9a6b00; --ambar-claro:#fdf3e1;
+    --gris:#5a6b78; --gris-claro:#f4f6f8; --borde:#d4dce3;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{
+    font-family:"Segoe UI","Calibri","Candara",Arial,sans-serif;
+    font-size:9.8pt; line-height:1.5; color:#24313c;
+  }
+  @page{
+    size:A4;
+    margin:16mm 14mm 18mm 14mm;
+  }
+  /* Pie fijo que se repite en todas las páginas (Chrome/Edge repiten position:fixed en impresión) */
+  #pie{
+    position:fixed; bottom:0; left:0; right:0;
+    font-size:7.2pt; color:#8a97a3; text-align:center;
+    padding:3mm 0 2mm 0; background:#fff;
+    border-top:0.4pt solid var(--borde);
+  }
+  #pie .pnum{ font-weight:600; color:var(--azul); }
+  section{ page-break-before:always; }
+  section:first-of-type{ page-break-before:auto; }
+  h1,h2,h3{ color:var(--azul-osc); line-height:1.25; }
+  h2.section{
+    font-size:15pt; border-bottom:2.2pt solid var(--azul);
+    padding-bottom:3mm; margin-bottom:5mm; margin-top:2mm;
+  }
+  h3{ font-size:11.4pt; margin:5mm 0 2mm 0; }
+  h4{ font-size:10.3pt; margin:4mm 0 1.6mm 0; color:#173a53; }
+  p{ margin:0 0 2.6mm 0; text-align:justify; }
+  ul,ol{ margin:0 0 3mm 5mm; }
+  li{ margin-bottom:1.2mm; }
+  table{ border-collapse:collapse; width:100%; margin:2mm 0 4mm 0; }
+  th{
+    background:var(--azul); color:#fff; text-align:left;
+    padding:1.8mm 2mm; font-size:8pt; line-height:1.25;
+  }
+  td{ padding:1.6mm 2mm; border-bottom:0.5pt solid var(--borde); vertical-align:top; }
+  tr:nth-child(even) td{ background:var(--gris-claro); }
+  thead{ display:table-header-group; }
+  tr{ page-break-inside:avoid; }
+  .num{ white-space:nowrap; }
+  small{ font-size:7.6pt; color:var(--gris); }
+  .nota{
+    background:var(--gris-claro); border-left:3pt solid var(--azul);
+    padding:2.4mm 3mm; margin:3mm 0; font-size:8.8pt;
+  }
+  .aviso{
+    background:var(--ambar-claro); border-left:3pt solid var(--ambar);
+    padding:2.4mm 3mm; margin:3mm 0; font-size:8.8pt;
+  }
+  .cubo{
+    background:var(--verde-claro); border-left:3pt solid var(--verde);
+    padding:2.4mm 3mm; margin:3mm 0; font-size:8.8pt;
+  }
+  .chip{ display:inline-block; padding:0.1mm 1.4mm; border-radius:2.4pt; font-size:7.2pt; font-weight:600; }
+  .chip-c{ background:var(--verde-claro); color:var(--verde); border:0.5pt solid var(--verde); }
+  .chip-a{ background:var(--ambar-claro); color:var(--ambar); border:0.5pt solid var(--ambar); }
+  .chip-ne{ background:#eef0f2; color:var(--gris); border:0.5pt solid #c2ccd4; }
+  .lbl{ font-weight:600; }
+  .tabla-chica td{ font-size:8.1pt; }
+  .code{ font-family:Consolas,"Courier New",monospace; font-size:8pt; background:#f0f3f6; padding:0.2mm 1.2mm; border-radius:1.5pt; }
+  .portada{ page-break-before:auto; }
+  .portada-inner{
+    border:1.2pt solid var(--azul); border-radius:6pt;
+    padding:14mm 12mm; margin-top:16mm;
+  }
+  .portada .proyecto{
+    font-size:11pt; letter-spacing:2.5pt; text-transform:uppercase; color:var(--azul); font-weight:600;
+  }
+  .portada h1{ font-size:24pt; margin:6mm 0 2mm 0; }
+  .portada .sub{ font-size:12pt; color:var(--gris); }
+  .portada table.cover{ margin-top:10mm; border:none; }
+  .portada table.cover td{ border:none; padding:1.6mm 0; border-bottom:0.5pt dotted var(--borde); font-size:10pt; }
+  .portada table.cover td:first-child{ width:34mm; color:var(--gris); font-weight:600; text-transform:uppercase; font-size:8pt; letter-spacing:1pt; }
+  .tod{ margin:6mm 0 0 0; font-size:8.6pt; color:var(--gris); }
+  .tod table{ width:56%; margin:2mm 0 0 0; font-size:8.2pt; }
+  .tod td{ padding:0.8mm 1mm; border:none; border-bottom:0.4pt dotted var(--borde); }
+  .tod td:first-child{ color:var(--azul); font-weight:600; width:26mm; }
+  .resumen-box{
+    background:var(--gris-claro); border:0.6pt solid var(--borde); border-radius:4pt;
+    padding:3mm 4mm; margin:3mm 0;
+  }
+  .kpis{ display:flex; gap:3mm; margin:3mm 0 4mm 0; }
+  .kpi{ flex:1; border:0.8pt solid var(--borde); border-top:2.6pt solid var(--azul); border-radius:3pt; padding:2.4mm; background:#fff; }
+  .kpi .v{ font-size:15pt; font-weight:700; color:var(--azul); }
+  .kpi .l{ font-size:7.6pt; color:var(--gris); text-transform:uppercase; letter-spacing:0.6pt; }
+  .det{ margin-top:3mm; font-size:8.6pt; color:#3e4c58; }
+</style>
+</head>
+<body>
+
+<div id="pie">Informe de Discovery · Sistema de turnos para clínica odontológica · 2026-10-07</div>
+
+<!-- ===================== PORTADA ===================== -->
+<section class="portada" style="page-break-before:auto;">
+  <div class="portada-inner">
+    <div class="proyecto">Informe de Discovery</div>
+    <h1>Sistema de gestión de turnos, pacientes y agenda para clínica odontológica</h1>
+    <p class="sub">Investigación de mercado, análisis competitivo y propuesta de MVP</p>
+    <table class="cover">
+      <tr><td>Materia</td><td>Metodología de Sistemas (Tecnicatura Universitaria en Programación)</td></tr>
+      <tr><td>Integrante</td><td>Franco Sampieri</td></tr>
+      <tr><td>Comisión</td><td>2PROG1</td></tr>
+      <tr><td>Docente</td><td>Juan Cruz Robledo</td></tr>
+      <tr><td>Fecha</td><td>07/10/2026</td></tr>
+    </table>
+    <div class="tod">
+      <table>
+        <tr><td>Fuente de entrada</td><td>discovery/discovery.md (fase Discovery)</td></tr>
+        <tr><td>Sistemas relevados</td><td>20 (10 odontológicos argentinos · 6 médicos generalistas AR · 1 latinoamericano · 3 internacionales)</td></tr>
+        <tr><td>Consulta original</td><td>2026-10-04 (sitios oficiales)</td></tr>
+        <tr><td>Re-verificación</td><td>2026-10-07 (7 fuentes, ver Sección 7)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ÍNDICE ===================== -->
+<section>
+  <h2 class="section">Contenido del informe</h2>
+  <table class="tod" style="width:100%; margin-top:4mm;">
+    <tr><td style="width:8mm;">1</td><td>Portada</td></tr>
+    <tr><td>2</td><td>Resumen ejecutivo</td></tr>
+    <tr><td>3</td><td>Sección A — Tabla comparativa de 20 sistemas (formato de consigna)</td></tr>
+    <tr><td>4</td><td>Sección B — Matriz de puntuación ponderada (con nota metodológica)</td></tr>
+    <tr><td>5</td><td>Sección C — Análisis competitivo (estándar de mercado, diferenciadores, vacíos, innovación)</td></tr>
+    <tr><td>6</td><td>Sección D — Recomendación final (demos, referencias de UX, MVP en 3 listas)</td></tr>
+    <tr><td>7</td><td>Verificación de fuentes</td></tr>
+    <tr><td>8</td><td>Referencias completas</td></tr>
+  </table>
+  <div class="nota" style="margin-top:6mm;">
+    <b>Convención de evidencia usada en todo el informe</b>: cada afirmación sobre un producto se clasifica con una etiqueta.
+    <ul style="margin-top:1.4mm;">
+      <li><span class="chip chip-c">[C]</span> <b>Funcionalidad comprobada</b> — la muestra el producto, la documentación oficial o un video oficial del proveedor.</li>
+      <li><span class="chip chip-a">[A]</span> <b>Afirmación comercial</b> — lo afirma el proveedor sin demostración verificable (cantidad de clínicas, reducción de ausencias, aprobaciones no contrastables).</li>
+      <li><span class="chip chip-ne">[NE]</span> <b>No evidenciado</b> — no hay evidencia pública suficiente; en las tablas se escribe literalmente “No evidenciado”.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== RESUMEN EJECUTIVO ===================== -->
+<section>
+  <h2 class="section">2. Resumen ejecutivo</h2>
+
+  <p>Se investigó de qué forma el mercado de software argentino resuelve la gestión de turnos, pacientes y agenda en clínicas odontológicas chico-medianas. Se relevaron <b>20 sistemas</b> —10 suites odontológicas nativas de Argentina, 6 suites médicas generalistas locales, 1 jugador latinoamericano y 3 internacionales— consultando exclusivamente sus <b>sitios oficiales el 2026-10-04</b>. Siete de esas fuentes fueron <b>re-verificadas en vivo el 2026-10-07</b> y las correcciones encontradas se documentan en la Sección 7. En todo el relevamiento se distinguió entre <b>funcionalidad comprobada</b> <span class="chip chip-c">[C]</span>, <b>afirmación comercial</b> <span class="chip chip-a">[A]</span> y <b>no evidenciado</b> <span class="chip chip-ne">[NE]</span>.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">20</div><div class="l">sistemas relevados</div></div>
+    <div class="kpi"><div class="v">10/10</div><div class="l">odontológicos AR con odontograma</div></div>
+    <div class="kpi"><div class="v">8/10</div><div class="l">sin exportación de datos declarada</div></div>
+    <div class="kpi"><div class="v">0</div><div class="l">proveedores con “solo agenda”</div></div>
+  </div>
+
+  <h3>Qué se investigó</h3>
+  <ul>
+    <li>El <b>problema</b> real que tienen las clínicas: doble reserva/solapamiento, ausentismo y dependencia de una sola persona que entiende la agenda.</li>
+    <li>Los <b>usuarios y roles</b>: secretaria (agenda), odontólogo (atiende) y administrador (gestiona), con login por rol obligatorio.</li>
+    <li>Los <b>competidores</b> del problema, sus funcionalidades, precios publicados, automatizaciones, seguridad y modelo comercial.</li>
+  </ul>
+
+  <h3>Principales hallazgos</h3>
+  <ol>
+    <li><b>El mercado local está saturado de suites “todo en uno”</b> de 9 a 17 módulos (DentalSoft, DentalCore, DenPro, OdontoClinIA, Dentiqa, Dentatools, Odontoly, FLAP, Sigo, IA Sistemas). Ninguno vende “solo la agenda sin historia clínica, sin facturación y sin costo variable”: ese espacio está vacío.</li>
+    <li><b>El odontograma es la expectativa del mercado</b> (10 de 10 proveedores argentinos odontológicos lo incluyen), pero <b>no se necesita para gestionar turnos</b>. Un TP que lo deje fuera tiene que asumirlo explícitamente, no por descuido.</li>
+    <li><b>WhatsApp es un costo, no una funcionalidad</b>: ixi traslada $45 + IVA por mensaje entregado y DentalSoft cobra USD 0,026 por recordatorio en su plan más caro <span class="chip chip-c">[C]</span>. Incluir automatización por WhatsApp en el MVP compromete un costo variable externo.</li>
+    <li><b>El hueco más grande del mercado es la transparencia y los datos</b>: 8 de 10 proveedores argentinos no declaran exportación de datos del paciente; el pricing “a consultar” persiste; la concurrencia (dos pacientes reservando el último horario a la vez) <b>no la muestra nadie</b> — y es el problema técnico más difícil y el más valioso para demostrar.</li>
+    <li><b>“Gestionix”, citado como posible competidor, no existe</b>: era un ERP mexicano adquirido por Konfío en diciembre de 2020 y cerrado el 30 de octubre de 2023. “SysTurno” y “Turnos Online” no se pudieron confirmar <span class="chip chip-ne">[NE]</span>.</li>
+  </ol>
+
+  <h3>MVP que se recomienda</h3>
+  <p>Un <b>núcleo de agenda de turnos sin integraciones externas</b>: ficha de paciente, profesionales con horarios y duración por prestación, agenda por día/profesional, reserva, cancelación y reprogramación con liberación automática, listado del día y búsqueda de pacientes; más cuatro ítems de cierre que lo hacen defendible: <b>validación anti-solapamiento en la capa de datos</b>, <b>bloqueos y feriados</b>, <b>exportación a CSV</b> y <b>roles + nota de privacidad</b> (Ley 25.326). El recordatorio por WhatsApp y la reserva online pública quedan en backlog <b>con su costo ya medido</b>. Criterio de éxito: <i>que un odontólogo y su secretaria puedan operar la agenda de un mes real, en multiusuario, sin solapamientos y sin depender de ningún servicio externo de pago.</i></p>
+</section>
+
+<!-- ===================== SECCIÓN A ===================== -->
+<section>
+  <h2 class="section">3. Sección A — Tabla comparativa de sistemas</h2>
+  <p><b>20 sistemas ordenados por relevancia para Argentina</b>, en el formato de consigna (Producto/Proveedor · País · Segmento · Reserva online · Recordatorios · Fuente y fecha). La celda <span class="chip chip-ne">[NE]</span> se escribe literalmente <b>“No evidenciado”</b>. Fecha de consulta: <b>2026-10-04</b>; los sistemas re-verificados el 2026-10-07 se indican en su fila (cambios documentados en la Sección 7).</p>
+
+  <table class="tabla-chica">
+    <thead>
+      <tr>
+        <th style="width:15%;">Producto / Proveedor</th>
+        <th style="width:13%;">País · Segmento</th>
+        <th style="width:24%;">Reserva online</th>
+        <th style="width:26%;">Recordatorios</th>
+        <th style="width:22%;">Fuente y fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>DentalSoft</b> / DentalSoft SRL</td>
+        <td>Argentina · Clínica / consultorio</td>
+        <td>Comprobado — “Turnos online para pacientes” (reserva en 4 pasos sobre slots reales); incluido en el plan Pro <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — WhatsApp + e-mail automáticos, <b>solo en plan Pro</b> ($60.000); manual en Gestión; Meta cobra USD 0,026/msg. “−82% ausencias” = afirmación comercial <span class="chip chip-c">[C]</span> <span class="chip chip-a">[A]</span></td>
+        <td>dentalsoft.com.ar · consultada el 2026-10-04 (re-verif. 2026-10-07)</td>
+      </tr>
+      <tr>
+        <td><b>DentalCore</b> / DentalCore</td>
+        <td>Argentina · Clínica chica a grande</td>
+        <td>Comprobado — portal web de pacientes y reserva vía bot de WhatsApp <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — bot WhatsApp 24/7 (confirma turnos, llena huecos, recall, campañas) <span class="chip chip-c">[C]</span></td>
+        <td>dentalcore.app · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>OdontoClinIA (ClinIA)</b> / Emprinet</td>
+        <td>Argentina · Consultorio, clínica PyME, servicio público</td>
+        <td>Comprobado — agenda online 24/7 por profesional/especialidad/sillón + reagendamiento automático al cancelar <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — recordatorios y confirmación por WhatsApp + asistente IA que agenda sin intervención <span class="chip chip-c">[C]</span></td>
+        <td>clinia.com.ar/odontologia · consultada el 2026-10-04 (re-verif. 2026-10-07)</td>
+      </tr>
+      <tr>
+        <td><b>FLAP</b> / Tu WebMaster</td>
+        <td>Argentina · Consultorio / clínica / profesión</td>
+        <td>No evidenciado</td>
+        <td>Comprobado — e-mail incluido en la base; WhatsApp solo en packs adicionales <span class="chip chip-c">[C]</span></td>
+        <td>flap.com.ar/odontologos · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>ixi</b> / ixi SAS (CABA)</td>
+        <td>Argentina · Consultorio / clínica</td>
+        <td>Comprobado — enlace público de reserva 24/7 (elige profesional, sede y horario) <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — WhatsApp automático ($45 + IVA por mensaje entregado, traslado del costo de Meta) + confirmación por e-mail <span class="chip chip-c">[C]</span></td>
+        <td>ixi.ar · consultada el 2026-10-04 (re-verif. 2026-10-07 — precio de lista $16.000 + IVA)</td>
+      </tr>
+      <tr>
+        <td><b>Dentiqa</b> / Dentiqa</td>
+        <td>Argentina / Latam · Clínica chica a grande</td>
+        <td>Comprobado — agenda de citas vía chatbot IA de WhatsApp 24/7 <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — recordatorios 24 h antes y campañas de marketing <span class="chip chip-c">[C]</span></td>
+        <td>dentiqa.app/ar · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>DenPro</b> / Elite Digital Services, LLC (UE)</td>
+        <td>Argentina (marca UE) · Consultorio, multisede, cadena</td>
+        <td>Comprobado — página oficial de “Reserva online de pacientes” (turnos online) <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — recordatorios <b>por SMS únicamente</b>, sin WhatsApp <span class="chip chip-c">[C]</span></td>
+        <td>denpro.ar · consultada el 2026-10-04 (re-verif. 2026-10-07)</td>
+      </tr>
+      <tr>
+        <td><b>IA Sistemas</b> / IA Sistemas</td>
+        <td>Argentina · Clínica odontológica 1–10 profesionales</td>
+        <td>Comprobado — turnos online 24/7 multi-profesional y directorio web <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — doble recordatorio inteligente (último día hábil + mismo día) con detección de feriados argentinos <span class="chip chip-c">[C]</span>; métricas de ausentismo = afirmación comercial <span class="chip chip-a">[A]</span></td>
+        <td>iasistemas.com · consultada el 2026-10-04 (re-verif. 2026-10-07 — precios ahora en ARS)</td>
+      </tr>
+      <tr>
+        <td><b>Dentatools</b> / Dentatools</td>
+        <td>Argentina · Odontólogo independiente / consultorio</td>
+        <td>Comprobado — auto-agendado por enlace; el turno se bloquea al instante <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — WhatsApp; la propia web lo describe “en un clic, vos lo enviás” en un lugar y “automáticos” en otro (contradicción interna) <span class="chip chip-c">[C]</span></td>
+        <td>dentatools.co/ar · consultada el 2026-10-04 (re-verif. 2026-10-07 — plan único $30.000)</td>
+      </tr>
+      <tr>
+        <td><b>Odontoly</b> / Odontoly</td>
+        <td>Argentina · Consultorio chico (local-first)</td>
+        <td>Comprobado — reservas online en enlace propio que entran al circuito y las confirma el equipo <span class="chip chip-c">[C]</span></td>
+        <td>No evidenciado — sin automatización declarada</td>
+        <td>odontoly.com · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>MedicAI</b> / MEDICAI S.A.S</td>
+        <td>Argentina · Consultorio 1–15 profesionales</td>
+        <td>Comprobado — turnera pública online 24/7 con sincronización a Google Calendar <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — recordatorios por e-mail <span class="chip chip-c">[C]</span>; WhatsApp: No evidenciado</td>
+        <td>medicai.com.ar · consultada el 2026-10-04 (re-verif. ReNaPDiS #292, 2026-10-07)</td>
+      </tr>
+      <tr>
+        <td><b>Gestión Salud</b> / Gestión Salud</td>
+        <td>Argentina · Centro de salud / profesional</td>
+        <td>Comprobado — turnos online 24/7 y ocupación de consultorios <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — recordatorios por e-mail <span class="chip chip-c">[C]</span>; WhatsApp: No evidenciado</td>
+        <td>gestionsalud.com.ar · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>Sigo</b> / Sigo</td>
+        <td>Argentina · Consultorio / clínica</td>
+        <td>No evidenciado</td>
+        <td>Comprobado — recordatorios por e-mail <span class="chip chip-c">[C]</span>; WhatsApp: No evidenciado</td>
+        <td>sigo.com.ar · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>WorldSoft Systems (Medical)</b> / WorldSoft</td>
+        <td>Argentina · Profesional / clínica / PAMI</td>
+        <td>No evidenciado — sí declara portal de pacientes y videollamadas <span class="chip chip-c">[C]</span>, pero no reserva pública</td>
+        <td>Comprobado — recordatorios por WhatsApp <span class="chip chip-c">[C]</span></td>
+        <td>worldsoftsystems.com.ar · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>Salvia</b> / Salvia Gestión</td>
+        <td>Argentina / Latam · Consultorio a hospital</td>
+        <td>No evidenciado</td>
+        <td>Comprobado — notificaciones internas genéricas <span class="chip chip-c">[C]</span>; WhatsApp: No evidenciado</td>
+        <td>salviagestion.ar · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>MEDTECH GDC</b> / MEDTECH</td>
+        <td>Argentina · Ambulatorio / policonsultorio</td>
+        <td>Comprobado — reserva web para el paciente <span class="chip chip-c">[C]</span></td>
+        <td>No evidenciado</td>
+        <td>medtech.com.ar/sistema-gdc · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>AgendaPro (dental)</b> / AgendaPro</td>
+        <td>Colombia (AR, CL, MX) · Consultorio / centro médico / IPS</td>
+        <td>Comprobado — calendario inteligente, ocupación en tiempo real y marketplace con geolocalización <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — e-mail, SMS o WhatsApp con confirmar/cancelar que se reflejan al instante <span class="chip chip-c">[C]</span></td>
+        <td>agendapro.com/co/dental · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>Doctoralia Pro</b> / Docplanner Group (España)</td>
+        <td>España · Clínica / centro médico / hospital</td>
+        <td>Comprobado — Agenda Online 360, agendamiento en grupo y lista de espera inteligente que rellena cancelaciones <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — e-mail, WhatsApp y SMS + recomposición automática de cancelaciones <span class="chip chip-c">[C]</span></td>
+        <td>pro.doctoralia.es · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>Curve Dental</b> / Constellation Software (EE.UU.)</td>
+        <td>EE.UU. · Consultorio chico a grupo mediano</td>
+        <td>No evidenciado — scheduler interno en navegador; no se declara reserva pública <span class="chip chip-c">[C]</span></td>
+        <td>Comprobado — Curve GRO incluido: recordatorios, campañas y catálogo de mensajes <span class="chip chip-c">[C]</span></td>
+        <td>curvedental.com/pricing · consultada el 2026-10-04</td>
+      </tr>
+      <tr>
+        <td><b>Dentrix</b> / Henry Schein One (EE.UU.)</td>
+        <td>EE.UU. · Consultorio, DSO, multisede</td>
+        <td>No evidenciado — patient engagement solo como add-on en la versión local <span class="chip chip-c">[C]</span></td>
+        <td>No evidenciado — (add-on, sin evidencia pública del alcance)</td>
+        <td>capterra.es/software/2329/dentrix (fuente secundaria) · consultada el 2026-10-04</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="nota">
+    <b>“Gestionix”, descartado:</b> era un ERP mexicano para pymes y contadores, adquirido por Konfío en diciembre de 2020 y cerrado el 30/10/2023. No tiene relación con salud ni con Argentina (ver Sección 7).
+  </div>
+  <div class="nota">
+    <b>Notas de la tabla</b>: (i) Se respeta el formato de consigna; las celdas sin evidencia pública dicen literalmente <b>“No evidenciado”</b>. (ii) Los montos citados son los publicados a la fecha de consulta, en la moneda del proveedor, sin normalizar a una moneda común (hacerlo sugeriría comparabilidad que no existe). (iii) <b>Contradicciones internas detectadas</b>: DentalSoft declara “recordatorios automáticos sin costo extra” en su home pero solo los incluye en plan Pro y con costo de Meta; AgendaPro se vende como software dental pero su propia tabla comparativa marca “No” al odontograma ante la competencia; Dentatools describe sus recordatorios como manuales y automáticos en la misma página; Odontoly se declara local-first y pospone sus funciones de IA a una evaluación de privacidad.
+  </div>
+</section>
+
+<!-- ===================== SECCIÓN B ===================== -->
+<section>
+  <h2 class="section">4. Sección B — Matriz de puntuación</h2>
+
+  <h3>B.1 Criterios, pesos y nota metodológica</h3>
+  <p>Escala de <b>0 a 5</b> por criterio, tomada del discovery. Los pesos son los indicados en la consigna de investigación.</p>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:44%;">Criterio</th><th style="width:10%;">Peso</th><th>Qué se puntúa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>1. Gestión de turnos y automatización</b></td><td class="num">25%</td><td>Agenda multi-profesional, duración variable, bloqueos, sobreturnos, detección de solapamiento, reserva online, recordatorios, cancelación/reagendamiento.</td></tr>
+      <tr><td><b>2. Funcionalidad odontológica clínica</b></td><td class="num">20%</td><td>Ficha, odontograma, periodonto, ortodoncia, imagen/radiografía, planes de tratamiento.</td></tr>
+      <tr><td><b>3. Integraciones locales y WhatsApp</b></td><td class="num">15%</td><td>WhatsApp Business API, Google Calendar, Mercado Pago, AFIP/ARCA, obras sociales.</td></tr>
+      <tr><td><b>4. Administración, cobros y facturación</b></td><td class="num">15%</td><td>Caja, presupuestos, liquidaciones, facturación electrónica, obras sociales, reportes.</td></tr>
+      <tr><td><b>5. Experiencia del paciente</b></td><td class="num">10%</td><td>Reserva online 24/7, portal, recordatorios, pagos, accesibilidad desde el celular.</td></tr>
+      <tr><td><b>6. Seguridad, exportación y trazabilidad</b></td><td class="num">10%</td><td>Cifrado, roles, auditoría, exportación, backups, normativa declarada.</td></tr>
+      <tr><td><b>7. Precio y facilidad de adopción</b></td><td class="num">5%</td><td>Precio publicado, prueba gratuita, sin permanencia, migración, onboarding.</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Nota metodológica — qué significó cada nota y cómo se trataron los “No evidenciados”</h4>
+  <ul>
+    <li><b>5</b> = comprobadamente completo en las fuentes oficiales; <b>4</b> = sólido con condiciones; <b>3</b> = parcial; <b>2</b> = mínimo; <b>1</b> = tangencial; <b>0</b> = ausente; <b>[NE]</b> = no evidenciado.</li>
+    <li><b>“No evidenciado” se puntuó como 1</b>: crédito por existir la categoría, no por la funcionalidad. Es la regla más conservadora compatible con no descartar a un producto por falta de documentación pública.</li>
+    <li><b>Solo se puntuó evidencia, no marketing</b>: cifras de resultado (ausencias, clínicas, aprobaciones no contrastables) se marcaron <span class="chip chip-a">[A]</span> y <b>no sumaron puntos</b>. Solo 2 sistemas (OdontoClinIA #248 y MedicAI #292) citan un registro oficial verificable <span class="chip chip-c">[C]</span>.</li>
+    <li>Cuando el proveedor muestra una contradicción interna (ej. DentalSoft en recordatorios), se puntuó según la versión más específica (la tabla de planes), no la más vendedora.</li>
+    <li>Puntaje = suma ponderada /5 · Índice = Puntaje × 20 (escala 0–100).</li>
+  </ul>
+
+  <h3>B.2 Matriz de puntuación</h3>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th>Sistema</th><th>C1 25%</th><th>C2 20%</th><th>C3 15%</th><th>C4 15%</th><th>C5 10%</th><th>C6 10%</th><th>C7 5%</th><th>Puntaje /5</th><th>Índice /100</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DentalCore</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">2</td><td class="num">5</td><td class="num"><b>4,70</b></td><td class="num"><b>94</b></td></tr>
+      <tr><td>DentalSoft</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">2</td><td class="num">4</td><td class="num"><b>4,65</b></td><td class="num"><b>93</b></td></tr>
+      <tr><td>OdontoClinIA</td><td class="num">5</td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">2</td><td class="num"><b>4,50</b></td><td class="num"><b>90</b></td></tr>
+      <tr><td>FLAP</td><td class="num">5</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num"><b>4,35</b></td><td class="num"><b>87</b></td></tr>
+      <tr><td>Doctoralia Pro</td><td class="num">5</td><td class="num">5</td><td class="num">2</td><td class="num">3</td><td class="num">5</td><td class="num">5</td><td class="num">3</td><td class="num"><b>4,15</b></td><td class="num"><b>83</b></td></tr>
+      <tr><td>ixi</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">5</td><td class="num">4</td><td class="num">5</td><td class="num">5</td><td class="num"><b>4,10</b></td><td class="num"><b>82</b></td></tr>
+      <tr><td>Dentiqa</td><td class="num">5</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">1</td><td class="num">4</td><td class="num"><b>4,00</b></td><td class="num"><b>80</b></td></tr>
+      <tr><td>IA Sistemas</td><td class="num">5</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num">2</td><td class="num">5</td><td class="num"><b>3,80</b></td><td class="num"><b>76</b></td></tr>
+      <tr><td>AgendaPro</td><td class="num">5</td><td class="num">3</td><td class="num">2</td><td class="num">4</td><td class="num">5</td><td class="num">3</td><td class="num">5</td><td class="num"><b>3,80</b></td><td class="num"><b>76</b></td></tr>
+      <tr><td>Odontoly</td><td class="num">4</td><td class="num">5</td><td class="num">1</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num"><b>3,60</b></td><td class="num"><b>72</b></td></tr>
+      <tr><td>MedicAI</td><td class="num">4</td><td class="num">2</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">5</td><td class="num">4</td><td class="num"><b>3,60</b></td><td class="num"><b>72</b></td></tr>
+      <tr><td>Dentatools</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">3</td><td class="num">4</td><td class="num">1</td><td class="num">4</td><td class="num"><b>3,40</b></td><td class="num"><b>68</b></td></tr>
+      <tr><td>Gestión Salud</td><td class="num">4</td><td class="num">2</td><td class="num">3</td><td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">4</td><td class="num"><b>3,35</b></td><td class="num"><b>67</b></td></tr>
+      <tr><td>Curve Dental</td><td class="num">4</td><td class="num">4</td><td class="num">2</td><td class="num">2</td><td class="num">4</td><td class="num">4</td><td class="num">2</td><td class="num"><b>3,30</b></td><td class="num"><b>66</b></td></tr>
+      <tr><td>DenPro</td><td class="num">4</td><td class="num">4</td><td class="num">2</td><td class="num">2</td><td class="num">3</td><td class="num">5</td><td class="num">5</td><td class="num"><b>3,20</b></td><td class="num"><b>64</b></td></tr>
+      <tr><td>WorldSoft (Medical)</td><td class="num">4</td><td class="num">0</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num"><b>3,15</b></td><td class="num"><b>63</b></td></tr>
+      <tr><td>Salvia</td><td class="num">4</td><td class="num">2</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num">4</td><td class="num">2</td><td class="num"><b>3,05</b></td><td class="num"><b>61</b></td></tr>
+      <tr><td>Sigo</td><td class="num">4</td><td class="num">4</td><td class="num">1</td><td class="num">4</td><td class="num">1</td><td class="num">1</td><td class="num">4</td><td class="num"><b>2,95</b></td><td class="num"><b>59</b></td></tr>
+      <tr><td>MEDTECH GDC</td><td class="num">4</td><td class="num">1</td><td class="num">3</td><td class="num">5</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num"><b>2,80</b></td><td class="num"><b>56</b></td></tr>
+      <tr><td>Gestionix</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num"><b>descartado</b></td><td class="num">—</td></tr>
+    </tbody>
+  </table>
+
+  <h3>B.3 Cómo leer la matriz (y dónde no usarla)</h3>
+  <p><b>La matriz no es un ranking del mercado.</b> Los tres primeros (DentalCore, DentalSoft, OdontoClinIA) tienen índice alto porque hacen todo lo del criterio 2 (odontograma) y del criterio 4 (obras sociales y liquidaciones) — exactamente lo que este proyecto <b>no va a hacer</b>. El criterio 2 (20%) penaliza a los competidores por tener más funcionalidad de la que el proyecto necesita; un sistema sin odontograma no está “peor” para el propósito: está <b>mejor orientado</b>. Si se recalculase la matriz solo con los criterios del MVP (C1, C3, C5, C6, C7), el orden cambia sustancialmente.</p>
+  <p><b>Dónde sí es útil:</b> elegir a quién mirar de cerca (Sección D) y detectar dónde el mercado es débil. Los tres criterios donde todos están flojos o en <span class="chip chip-ne">[NE]</span>:</p>
+  <ul>
+    <li><b>C6 (Seguridad, exportación y trazabilidad)</b>: ninguno de los 10 proveedores argentinos odontológicos declara exportación de datos del paciente; fuera de ese grupo solo WorldSoft e ixi, y Gestión Salud vía API. <b>Es el hueco más grande.</b></li>
+    <li><b>C7 (Precio y adopción)</b>: 8 de 10 publican precio; el problema es que DentalSoft y FLAP <b>cobran la función principal</b> (recordatorio automático) en el plan más caro o en packs aparte. Afuera, Dentrix y Salvia no publican nada.</li>
+    <li><b>C3 (WhatsApp + integraciones)</b>: 7 de 10 tienen WhatsApp integrado; de esos, dos lo cobran aparte.</li>
+  </ul>
+  <div class="cubo"><b>Conclusión de la matriz:</b> el mercado argentino está <b>sobredimensionado en cubo clínico y subdimensionado en transparencia y datos</b>. Ese es el espacio donde el proyecto puede posicionarse sin competir en lo que ya está cubierto diez veces.</div>
+</section>
+
+<!-- ===================== SECCIÓN C ===================== -->
+<section>
+  <h2 class="section">5. Sección C — Análisis competitivo</h2>
+
+  <h3>C.1 Estándar de mercado</h3>
+  <p>El mercado argentino de software odontológico se divide en tres capas que compiten por recursos distintos:</p>
+  <ul>
+    <li><b>Capa 1 — Suites odontológicas nativas (10)</b>: DentalSoft, DenPro, DentalCore, OdontoClinIA, Dentiqa, Dentatools, Odontoly, FLAP, Sigo, IA Sistemas. Compiten por “ser el sistema de la clínica” con 9 a 17 módulos. Rango de plan de entrada hoy (re-verificado 2026-10-07): <b>$19.900 ARS/mes</b> (DenPro Basic) a <b>$77.000/mes de lista</b> (IA Sistemas Básico, con 20% OFF a $61.999), con el usuario/profesional adicional entre $8.000 y $30.800.</li>
+    <li><b>Capa 2 — Suites médicas generalistas (6)</b>: ixi, MedicAI, Gestión Salud, Salvia, MEDTECH GDC, WorldSoft. Compiten por obra social, prepagas, financiadores e internación; el odontólogo es un caso de uso más.</li>
+    <li><b>Capa 3 — Plataformas de reserva multi-vertical (2)</b>: AgendaPro (Latam) y Doctoralia Pro (internacional). Compiten por atraer pacientes; el calendario es el producto.</li>
+  </ul>
+  <p><b>Estándar de mercado del “deber ser” argentino</b>: agenda multi-profesional con detectación de solapamiento declarada, odontograma FDI, recordatorios automáticos por WhatsApp, obra social y facturación. Cinco patrones repetidos de la competencia:</p>
+  <ul>
+    <li><b>“Todo en uno”</b> (Curve, ixi, Odontoly): un plan, todo incluido, cero sorpresa — el modelo que más crece.</li>
+    <li><b>“Suite completa + landing”</b> (DentalSoft, Dentatools): ganan por captación de pacientes; la agenda es el anzuelo.</li>
+    <li><b>“Precio por profesional”</b> (MedicAI, ixi, Dentatools, DentalSoft): alinea el costo con el ingreso — el modelo correcto para un consultorio chico.</li>
+    <li><b>“Local-first / privacidad”</b> (Odontoly): nicho frente a la nube; válido para datos de salud y un diferenciador didáctico fuerte.</li>
+    <li><b>“IA + WhatsApp como producto”</b> (DentalCore, Dentiqa, OdontoClinIA): hacia allá va el mercado, todos con afirmaciones de resultado no verificables <span class="chip chip-a">[A]</span>.</li>
+  </ul>
+
+  <h3>C.2 Diferenciadores reales</h3>
+  <p>Lo único que los proveedores argentinos <b>muestran y sostienen con detalle funcional</b> <span class="chip chip-c">[C]</span>:</p>
+  <ul>
+    <li><b>Anti-solapamiento declarado</b>: DentalSoft lo describe (“detección automática de solapamiento”), Dentiqa vende “sin riesgo de doble-reserva”, Dentatools bloquea el turno “al instante”. Es el único estándar de mercado que el MVP debe <b>superar</b>.</li>
+    <li><b>Automatización de recordatorios</b>: el canal está estandarizado (WhatsApp, excepto DenPro-SMS y Sigo/Gestión Salud-e-mail).</li>
+    <li><b>Odontograma y clínica</b>: presente en 10 de 10, con notación FDI y versionado (FLAP “anula sin borrar”).</li>
+    <li><b>Transparencia honesta</b> que funciona como diferenciador: ixi publica precio y costo por mensaje; Odontoly declara lo que su local-first no puede hacer (IA diferida); Dentatools dice explícitamente que no emite factura AFIP ni gestiona obras sociales.</li>
+    <li><b>Trazabilidad verificable</b>: ixi (encuentros firmados e inmutables, huella encadenada) y MedicAI (sello SHA-256 + historial inmutable 15 años).</li>
+  </ul>
+
+  <h3>C.3 Vacíos del mercado argentino</h3>
+  <ol>
+    <li><b>Cero exportación de datos del paciente declarada</b> entre los 10 odontológicos argentinos (a 2026-10-07, Dentatools e IA Sistemas pasaron a declararla en su FAQ como posibilidad de baja — sigue sin ser un proceso visible). Para un sistema que guarda DNI y fecha de nacimiento es una diferencia real.</li>
+    <li><b>Precios opacos o ausentes</b>: OdontoClinIA “solicitar demo”, FLAP “Consultar”, Salvia sin precios, IA Sistemas con promoción temporal (antes “agosto”, hoy “octubre”) sobre precios de lista que no se ven a simple vista.</li>
+    <li><b>Cobro variable sobre la función principal</b>: el recordatorio automático (su argumento de venta) se ofrece solo en el plan más caro (DentalSoft Pro) o en packs (FLAP) o con costo por mensaje (ixi). El cliente lo descubre al mes 2.</li>
+    <li><b>Nadie muestra la concurrencia</b>: ningún proveedor publica cómo maneja dos pacientes reservando el último horario a la vez. Es el problema técnico más difícil de la reserva online y el espacio vacío del que el proyecto se puede apropiar.</li>
+    <li><b>Declaraciones de cumplimiento no verificables</b>: solo OdontoClinIA (#248) y MedicAI (#292) citan un registro oficial contrastable; IA Sistemas muestra un legajo sin acceso público al registro.</li>
+    <li><b>No existe “solo la agenda”</b>: ningún proveedor argentino vende el núcleo de turnos sin historia clínica, facturación ni costo variable. Es el vacío comercial donde el MVP se para.</li>
+  </ol>
+
+  <h3>C.4 Oportunidades de innovación</h3>
+  <ul>
+    <li><b>Garantía de no-solapamiento en la capa de datos, con la concurrencia resuelta como caso de test</b>: ser el único en Argentina que muestra el caso de las dos reservas simultáneas y lo garantiza a nivel de base de datos (no con un <span class="code">if</span> en el formulario). Es una oportunidad técnica y de marketing didáctico.</li>
+    <li><b>Exportación y portabilidad de datos como diferencial honesto</b>: con costo de implementación despreciable y hueco de mercado total (nadie lo ofrece de forma visible).</li>
+    <li><b>Transparencia radical de precio y alcance</b>: publicar el precio desde el día 1 (lección de ixi) y decir lo que el sistema no hace (lección de Dentatools/Odontoly), frente al “Consultar” de la competencia.</li>
+    <li><b>Alcance acotado y defendible</b>: “hago el 30% del alcance de los demás, bien resuelto y demostrable”, en lugar de un bundle de 9–17 módulos a medio terminar.</li>
+    <li><b>Sin costos variables</b>: agenda 100% utilizable sin servicios de pago, a diferencia de cualquier sistema con WhatsApp automatizado.</li>
+  </ul>
+</section>
+
+<!-- ===================== SECCIÓN D ===================== -->
+<section>
+  <h2 class="section">6. Sección D — Recomendación final</h2>
+
+  <h3>D.1 Los 5 competidores para demo</h3>
+  <p>Para desarmar en clase: todos argentinos, todos con demo o trial accesible, cada uno con una lección distinta.</p>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:16%;">Sistema</th><th style="width:21%;">URL</th><th>Por qué verlo y qué mirar primero</th><th style="width:26%;">Cuidado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>DentalSoft</b></td><td class="code">dentalsoft.com.ar</td><td>El más completo en lo clínico y administrativo, demo en vivo sin tarjeta. Mirar el flujo de reserva en 4 pasos y la agenda con detección de solapamiento.</td><td>Su propia tabla de planes contradice su home en los recordatorios: mejor ejemplo para enseñar a distinguir afirmación comercial de funcionalidad comprobada.</td></tr>
+      <tr><td><b>DentalCore</b></td><td class="code">dentalcore.app</td><td>Índice más alto (94) y único con CDSS clínico. Mirar el bot de WhatsApp de 9 flujos y el dashboard de presupuestos no cobrados.</td><td>Funciona sobre una sesión de WhatsApp personal (riesgo de disponibilidad). Reclama ser “el único SIS/CDSS de Latam” <span class="chip chip-a">[A]</span>.</td></tr>
+      <tr><td><b>OdontoClinIA</b></td><td class="code">clinia.com.ar/odontologia</td><td>Único con verificación oficial en registro público (ReNaPDiS #248). Mirar el reagendamiento automático al cancelar y el plan por etapas con presupuesto por pieza.</td><td>Sin precios publicados; hay que pedir demo. El #248 es solo del recetario, no del software completo (lo declara el propio proveedor).</td></tr>
+      <tr><td><b>FLAP</b></td><td class="code">flap.com.ar/odontologos</td><td>El mejor modelo de datos de agenda: box, duración propia y versionado de ficha clínica (anular sin borrar).</td><td>WhatsApp en packs aparte: muestra cómo se esconde un costo.</td></tr>
+      <tr><td><b>ixi</b></td><td class="code">ixi.ar</td><td>El modelo de negocio más honesto: precio de lista publicado, exportación de datos y plan fundador explícito. Mirar el reporte “A liquidar” y el encuentro firmado e inmutable.</td><td>Odontograma ausente. El precio de $0 actual no es el real: explicar el de lista ($16.000 + IVA/prof/mes).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>D.2 Las 3 referencias de experiencia de usuario</h3>
+  <p>Para copiar patrones de interacción, no arquitectura.</p>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:16%;">Referencia</th><th style="width:27%;">URL</th><th>Patrón a copiar</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>AgendaPro</b></td><td class="code">agendapro.com/co/dental</td><td>Reserva en 4 pasos + ocupación visible en tiempo real + marketplace.</td><td>El patrón multi-vertical (una misma agenda para peluquería, veterinaria, odontología) es el más simple de replicar. Su tabla comparativa además muestra la contradicción del odontograma.</td></tr>
+      <tr><td><b>Doctoralia Pro</b></td><td class="code">pro.doctoralia.es/precios/para-clinicas</td><td>Lista de espera inteligente + agendamiento en grupo + Agenda 360.</td><td>“Llenar huecos sin llamar a nadie” ataca el ingreso perdido y casi ningún proveedor argentino lo resuelve bien.</td></tr>
+      <tr><td><b>Curve Dental</b></td><td class="code">curvedental.com/pricing</td><td>“Todo en un plan” vs add-ons.</td><td>Lección negativa: DentalCore y Dentiqa hacen lo contrario (todo en plan Pro con add-ons). Comparar ambos enfoques es el mejor ejercicio de costo total de propiedad para un TP.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>D.3 MVP recomendado — dividido en tres listas</h3>
+  <p><b>Filosofía:</b> el núcleo de los 8 ítems del prompt original más 4 ítems de cierre, sin integraciones externas.</p>
+
+  <h4>Imprescindible (bloquea el MVP; sin esto el sistema no cierra)</h4>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:20%;">Bloque</th><th>Ítems</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Datos</b></td><td>Ficha de paciente (nombre, apellido, DNI, teléfono, e-mail, fecha de nacimiento) · Catálogo de profesionales con horarios y <b>duración por prestación</b> (una limpieza no es una endodoncia).</td></tr>
+      <tr><td><b>Agenda</b></td><td>Agenda por día y por profesional · Listado de turnos del día · <b>Bloqueos y feriados</b> (vacaciones, no atención, calendario nacional) · <b>Validación anti-solapamiento en la capa de datos</b>.</td></tr>
+      <tr><td><b>Operación</b></td><td>Reserva de turno (fecha, hora, profesional, paciente, tratamiento) · Cancelación y reprogramación <b>con liberación automática</b> del horario · Búsqueda básica de pacientes.</td></tr>
+      <tr><td><b>Cierre</b></td><td><b>Roles y permisos</b> (secretaria / odontólogo / administrador) · <b>Exportación de agenda y pacientes a CSV</b> · <b>Nota de privacidad</b> (Ley 25.326).</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Diferenciador (qué hace a este MVP mejor posicionado que el mercado, sin costo variable)</h4>
+  <ul>
+    <li><b>Anti-solapamiento garantizado en la base de datos</b>, no en el formulario: la invariante define el producto (con dos usuarios y dos pestañas abiertas no se rompe). Es la diferencia entre “evita la doble reserva” y “avisa”, y el único vacío técnico que la competencia no muestra.</li>
+    <li><b>Exportación de datos a CSV</b>: el hueco de mercado total de la matriz B (Sección B.3), con costo de implementación despreciable. El diferencial honesto más barato posible.</li>
+    <li><b>Bloqueos y feriados modelados</b>: sin esto la agenda ofrece horarios que en realidad no existen — el riesgo más caro del sistema.</li>
+    <li><b>Transparencia total</b>: precio y alcance publicados desde el día 1 (lección ixi), incluyendo lo que el sistema no hace (lección Dentatools/Odontoly).</li>
+    <li><b>Cero costos variables</b>: ninguna dependencia de servicios de pago externos; WhatsApp va al backlog con su costo ya medido.</li>
+  </ul>
+
+  <h4>Etapas posteriores (backlog priorizado, con la razón de postergarlo)</h4>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:28%;">Ítem</th><th>Razón / costo conocido</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Recordatorio por WhatsApp</b></td><td>Mayor impacto sobre el ausentismo, pero costo variable por mensaje (ixi: $45 + IVA; DentalSoft Pro: USD 0,026) y dependencia de Meta. Va al backlog <b>con el costo ya medido</b>.</td></tr>
+      <tr><td><b>Reserva online pública (link)</b></td><td>Es el caso de uso 5; la parte más cara y de mayor riesgo de concurrencia. Si entra, entra completa (slots en tiempo real + manejo de dos reservas simultáneas). Decisión bloqueante definida como prioridad Alta en el discovery.</td></tr>
+      <tr><td><b>Lista de espera / relleno de cancelaciones</b></td><td>Compleja: hay que decidir quién y en qué orden.</td></tr>
+      <tr><td><b>Recordatorios por e-mail</b></td><td>Alternativa sin costo variable a WhatsApp.</td></tr>
+      <tr><td><b>Reporte de ocupación y cumplimiento</b></td><td>Turnos por profesional, franja, cumplidos/no cumplidos.</td></tr>
+      <tr><td><b>Impresión de agenda del día · Sobreturnos/urgencias · Auditoría de cambios · Multi-sucursal</b></td><td>Útiles pero no bloqueantes; cada uno suma alcance sin asegurar el núcleo.</td></tr>
+      <tr><td><b>Explicitamente fuera del alcance</b></td><td>Historia clínica y odontograma (10/10 competidores lo tienen: no es diferenciador y multiplica el alcance ×5), facturación AFIP/ARCA (Dentatools demuestra que se opera igual sin ella), obras sociales/prepagas, caja, recetas, IA/chatbot, app móvil. Cada uno multiplica el alcance entre 3 y 5 veces.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota"><b>Criterio de éxito del MVP, en una frase:</b> <i>que un odontólogo y su secretaria puedan operar la agenda de un mes real completa, en multiusuario, sin solapamientos y sin depender de ningún servicio externo de pago.</i></div>
+</section>
+
+<!-- ===================== VERIFICACIÓN DE FUENTES ===================== -->
+<section>
+  <h2 class="section">7. Verificación de fuentes</h2>
+  <p>El discovery relevó los 20 sistemas el <b>2026-10-04</b> consultando sitios oficiales. El <b>2026-10-07</b> se re-verificaron en vivo <b>7 fuentes</b> (visualizando la página actual del proveedor o documentación independiente). Para cada una se indica <b>qué afirmaba el informe, qué se encontró al re-verificar y qué se corrigió</b>. Las correcciones ya quedaron aplicadas en las Secciones A–D.</p>
+
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:17%;">Fuente verificada</th><th style="width:26%;">Qué afirmaba el informe (2026-10-04)</th><th style="width:30%;">Qué encontramos al verificar (2026-10-07)</th><th>Qué corregimos</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>ixi</b> — ixi.ar</td>
+        <td>Precio de lista <b>$11.000 + IVA</b> por profesional/mes; WhatsApp $45 + IVA por mensaje entregado; plan fundador 500 consultorios; exportación al darse de baja.</td>
+        <td>La web vigente publica <b>$16.000 + IVA</b> de precio de lista (plan fundador sigue $0/500 consultorios). WhatsApp $45 + IVA por mensaje entregado se mantiene. Exportación de datos al irte y sin permanencia: declaradas.</td>
+        <td><b>Precio de lista actualizado</b> ($16.000 + IVA) en Sección A y D.1. Resto del relevamiento, confirmado sin cambios.</td>
+      </tr>
+      <tr>
+        <td><b>IA Sistemas</b> — iasistemas.com</td>
+        <td>Precios en USD: 39 (1 prof) / 99 (hasta 5) / 149 (hasta 10) + USD 15/prof adicional; “promoción de agosto”; legajo RL-2026-41992503-APN-SSVEIYES#MS.</td>
+        <td>La web vigente publica precios en <b>ARS con promoción de octubre (20% OFF)</b>: Básico $61.999 (lista $77.000), Clínica $153.999 (lista $192.500), Premium $222.999 (lista $279.100), +$30.800/prof adicional; anual bonifica 2 meses. Legajo y “auditada y aprobada” siguen publicados; doble recordatorio + feriados AR confirmados; exportación declarada al cancelar.</td>
+        <td><b>Precios actualizados a ARS</b> en C.1. El legajo sigue clasificado <span class="chip chip-a">[A]</span> (sin acceso público al registro para contrastarlo).</td>
+      </tr>
+      <tr>
+        <td><b>Dentatools</b> — dentatools.co/ar</td>
+        <td>Precio: $15.000/mes (1 profesional) · $30.000/mes (hasta 3) · +$8.000/prof. No emite factura AFIP; no gestiona obras sociales; recordatorios WhatsApp con confirmación que actualiza la agenda.</td>
+        <td>La web vigente tiene <b>un solo plan: $30.000/mes hasta 3 odontólogos</b>, +$8.000 por odontólogo adicional (el plan individual desapareció). No AFIP y no obras sociales: confirmados. Auto-agendado por enlace: confirmado. FAQ ahora declara <b>exportación al cerrar cuenta</b>. Los recordatorios se describen como “en un clic, vos lo enviás” (manual) en un bloque y “automáticos” en otro: contradicción.</td>
+        <td><b>Precio actualizado (plan único $30.000)</b> en Sección A. Exportación de [NE] a “declarada en FAQ”. Se documenta la contradicción interna sobre los recordatorios.</td>
+      </tr>
+      <tr>
+        <td><b>DentalSoft</b> — dentalsoft.com.ar</td>
+        <td>Contradicción interna: “recordatorios automáticos sin costo extra” (home) vs tabla de planes donde recién el plan Pro ($60.000) los incluye y Meta cobra USD 0,026/msg; demo 6 meses gratis; “−82% ausencias”.</td>
+        <td>Confirmado: el plan Gestión ($30.000) incluye envío <b>manual</b> de recordatorios; el <b>Pro ($60.000) incluye los automáticos</b> con “iMeta cobra 0,026 USD por cada recordatorio de WhatsApp; los automáticos por e-mail son gratuitos”. Demo gratuita 6 meses: confirmada. “−82% ausencias” y “+35% ocupación”: siguen sin metodología pública.</td>
+        <td>Ninguna corrección de datos; se ratifica la clasificación <span class="chip chip-c">[C]</span> para la contradicción y <span class="chip chip-a">[A]</span> para las métricas.</td>
+      </tr>
+      <tr>
+        <td><b>DenPro</b> — denpro.ar</td>
+        <td>Marca de Elite Digital Services, LLC con soporte +34 y +421; Basic $19.900 / Team $29.900; AES-256, ISO 27001 (UE), GDPR; 30 días gratis sin tarjeta; recordatorios solo por SMS.</td>
+        <td>Confirmado todo: tel. soporte +34 672 182 743 y WhatsApp +421 944 063 272; precios Basic/Team; FAQ con AES-256, centros ISO 27001 en la UE y GDPR; trial 30 días sin tarjeta; “Recordatorios SMS” (sin WhatsApp). “50+ consultorios” y “+421” son de marketing.</td>
+        <td>Ninguna corrección; se ratifica el dato de origen europeo y el servicio de recordatorios por SMS.</td>
+      </tr>
+      <tr>
+        <td><b>Gestionix</b> — desmentido (fuentes independientes)</td>
+        <td>“Gestionix no es competidor: ERP mexicano adquirido por Konfío en dic/2020 y cerrado el 30/10/2023”.</td>
+        <td>Confirmado con fuentes independientes: Contxto (12-09-2023) y Alegra (27-09-2023) informan el cese de operaciones el 30/10/2023; Crunchbase lo registra fundado en 2012 en Ciudad de México, adquirido por Konfío (dic/2020).</td>
+        <td>Ninguna. Se cierra el supuesto que el prompt original listaba con signo de pregunta: quedó <b>desmentido</b> y fuera de la tabla.</td>
+      </tr>
+      <tr>
+        <td><b>ReNaPDiS</b> — OdontoClinIA #248 y MedicAI #292</td>
+        <td>OdontoClinIA cita “ReNaPDiS #248” y MedicAI “ReNaPDiS #292” como registros verificables de recetario electrónico.</td>
+        <td>Clinia.com.ar/odontologia declara el recetario con <b>ID 248</b>, estándar HL7 FHIR, enlace al listado oficial del Ministerio, y aclara que el alcance es del recetario y no del software completo (honestidad). MedicAI.com.ar declara “registro N° 292, tipo Recetario, estándar HL7 FHIR, MEDICAI S.A.S”.</td>
+        <td>Ninguna. Se mantienen como <span class="chip chip-c">[C]</span> (contrastables) y se agrega la salvedad del alcance del #248.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="aviso">
+    <b>Límites declarados de la verificación:</b> no se probaron los sistemas (todo lo relevado es documentación del proveedor), no se hicieron entrevistas con clínicas reales ni se verificaron precios de renovación. Las cifras de clínicas y reducción de ausentismo son <span class="chip chip-a">[A]</span> en todos los casos. El mercado local que aún opera con papel/WhatsApp no fue dimensionado.
+  </div>
+</section>
+
+<!-- ===================== REFERENCIAS ===================== -->
+<section>
+  <h2 class="section">8. Referencias completas</h2>
+  <p>Sitios oficiales consultados (fecha de consulta <b>2026-10-04</b>, salvo indicación de re-verificación el <b>2026-10-07</b>). No se usó ninguna fuente de opinión como base factual; las referencias secundarias se emplearon únicamente para contrastar precios no publicados y se marcan como tales.</p>
+
+  <h3>8.1 Sistemas relevados (20)</h3>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:26%;">Sistema</th><th style="width:52%;">URL (fuente oficial salvo indicación)</th><th>Fecha de consulta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DentalSoft</td><td class="code">https://dentalsoft.com.ar/</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>DentalCore</td><td class="code">https://dentalcore.app/</td><td>2026-10-04</td></tr>
+      <tr><td>OdontoClinIA (ClinIA)</td><td class="code">https://www.clinia.com.ar/odontologia</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>FLAP</td><td class="code">https://flap.com.ar/odontologos</td><td>2026-10-04</td></tr>
+      <tr><td>ixi</td><td class="code">https://ixi.ar/</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>Dentiqa</td><td class="code">https://dentiqa.app/ar</td><td>2026-10-04</td></tr>
+      <tr><td>DenPro</td><td class="code">https://www.denpro.ar/</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>IA Sistemas</td><td class="code">https://iasistemas.com/sistema-para-clinicas-odontologicas</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>Dentatools</td><td class="code">https://dentatools.co/ar/</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>Odontoly</td><td class="code">https://odontoly.com/</td><td>2026-10-04</td></tr>
+      <tr><td>MedicAI</td><td class="code">https://www.medicai.com.ar/precios</td><td>2026-10-04 · re-verif. 07</td></tr>
+      <tr><td>Gestión Salud</td><td class="code">https://www.gestionsalud.com.ar/</td><td>2026-10-04</td></tr>
+      <tr><td>Sigo</td><td class="code">https://sigo.com.ar/</td><td>2026-10-04</td></tr>
+      <tr><td>WorldSoft Systems (Medical)</td><td class="code">https://worldsoftsystems.com.ar/software-gestion-medica/</td><td>2026-10-04</td></tr>
+      <tr><td>Salvia</td><td class="code">https://salviagestion.ar/</td><td>2026-10-04</td></tr>
+      <tr><td>MEDTECH GDC</td><td class="code">https://medtech.com.ar/sistema-gdc/</td><td>2026-10-04</td></tr>
+      <tr><td>AgendaPro (dental)</td><td class="code">https://agendapro.com/co/dental/software-odontologico</td><td>2026-10-04</td></tr>
+      <tr><td>Doctoralia Pro</td><td class="code">https://pro.doctoralia.es/precios/para-clinicas</td><td>2026-10-04</td></tr>
+      <tr><td>Curve Dental</td><td class="code">https://www.curvedental.com/pricing</td><td>2026-10-04</td></tr>
+      <tr><td>Dentrix (fuente secundaria)</td><td class="code">https://www.capterra.es/software/2329/dentrix</td><td>2026-10-04</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.2 Fuentes secundarias usadas para contrastar precios</h3>
+  <p><small>El precio de Dentrix proviene de Capterra y de practicesignal (rango USD 400–700/mes, marcado <span class="chip chip-a">[A]</span>); el de Curve Dental de practicesignal (USD 299–500, marcado <span class="chip chip-a">[A]</span>); el de AgendaPro de Capterra.co (US$19) contrastado con la página oficial .cl en CLP <span class="chip chip-c">[C]</span>. También se referenciaron themolarreport y recepcionista.com como contrastes secundarios citados en el discovery.</small></p>
+
+  <h3>8.3 Fuentes de la verificación del 2026-10-07</h3>
+  <table class="tabla-chica">
+    <thead>
+      <tr><th style="width:30%;">Tema</th><th>Referencia</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Cierre de Gestionix (30/10/2023)</td><td>Contxto: <span class="code">contxto.com/es/startups-es/konfio-pone-fin-a-gestionix-para-reforzar-su-foco-en-servicios-financieros-para-pymes</span> (12-09-2023) · Alegra (27-09-2023) · Operam (25-09-2023) · Crunchbase: <span class="code">crunchbase.com/organization/gestionix</span></td></tr>
+      <tr><td>ReNaPDiS #248 (OdontoClinIA)</td><td><span class="code">clinia.com.ar/odontologia</span> y listado oficial: <span class="code">argentina.gob.ar/salud/digital/renapdis/receta-electronica/plataformas</span></td></tr>
+      <tr><td>ReNaPDiS #292 (MedicAI)</td><td><span class="code">medicai.com.ar</span> (registro N° 292, Recetario, HL7 FHIR)</td></tr>
+      <tr><td>Precios/planes vigentes</td><td>ixi.ar · iasistemas.com · dentatools.co/ar · dentalsoft.com.ar · denpro.ar (consultadas el 2026-10-07)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>8.4 Documento origen del relevamiento</h3>
+  <p><b>Discovery — Turnos Odontología</b>, <span class="code">discovery/discovery.md</span>, fase Discovery (precedente a kb-creator), relevamiento del 2026-10-04 con 20 sistemas y trazabilidad completa de la investigación (Sección Anexo: fuentes oficiales únicas, límites explícitos y verificaciones repetibles).</p>
+
+  <p style="margin-top:6mm;" class="det">Informe armado sobre la base del discovery del proyecto (2026-10-04) con re-verificación en vivo de 7 fuentes el 2026-10-07. Las discrepancias encontradas (precios de ixi, IA Sistemas y Dentatools) se corrigieron en el cuerpo del informe y se documentan en la Sección 7.</p>
+</section>
+
+</body>
+</html>
